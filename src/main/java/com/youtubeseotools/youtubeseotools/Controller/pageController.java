@@ -21,6 +21,6 @@ public class pageController
     @GetMapping("/seo")
     public String seoPage()
     {
-        return "seo";  // your seo.html page
+        return "seo";  
     }
 }
