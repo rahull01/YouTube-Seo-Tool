@@ -34,47 +34,89 @@
         <div th:if="${error}" class="error rounded-lg p-4 mt-4" th:text="${error}"></div>
     </div>
 
-    <!-- Result Section -->
-    <div th:if="${videoDetails != null}">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg p-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div>
-                    <div class="thumb-box">
-                        <img th:src="${videoDetails.thumbnailUrl}" th:alt="${videoDetails.title}" class="w-full h-auto block">
-                    </div>
-                    <div class="mt-4 flex justify-end">
-                        <a class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg"
-                           th:href="${videoDetails.thumbnailUrl}" th:download="${videoDetails.title + '-thumb.jpg'}">
-                            <i class="bi bi-download"></i> Download
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="font-bold text-slate-900 dark:text-slate-100 mb-2">
-                        <i class="bi bi-film text-blue-500"></i> <span th:text="${videoDetails.title}"></span>
-                    </h2>
-                    <div class="text-slate-600 dark:text-slate-400 mb-4">
-                        <i class="bi bi-person-video"></i> <span th:text="${videoDetails.channelTitle}"></span> &bull;
-                        <i class="bi bi-calendar3"></i> <span th:text="${videoDetails.publishedAt}"></span>
-                    </div>
-                    <div class="mb-6">
-                        <h3 class="font-bold mb-2"><i class="bi bi-text-paragraph text-blue-500"></i> Description</h3>
-                        <div class="desc-box" th:text="${videoDetails.description != null ? videoDetails.description : 'No description available.'}"></div>
-                    </div>
-                    <div>
-                        <h3 class="font-bold mb-2"><i class="bi bi-tags text-blue-500"></i> Tags</h3>
-                        <div th:if="${videoDetails.tags.size() > 0}">
-                                <span th:each="tag : ${videoDetails.tags}" class="tag inline-flex items-center px-3 py-2 mr-2 mb-2 text-sm">
-                                    <i class="bi bi-hash"></i> <span th:text="${tag}"></span>
-                                </span>
-                        </div>
-                        <div th:if="${videoDetails.tags.size() == 0}" class="text-slate-500 italic">No tags available.</div>
-                    </div>
-                </div>
-            </div>
+  <!-- ✅ RESULT SECTION -->
+<div th:if="${videoDetails != null}" class="space-y-8">
+
+    <!-- ✅ THUMBNAIL BOX -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6">
+        <h2 class="font-bold text-lg mb-4 flex items-center gap-2 text-slate-800 dark:text-slate-100">
+            <i class="bi bi-image text-blue-500"></i> Thumbnail
+        </h2>
+
+        <img th:src="${videoDetails.thumbnailUrl}" th:alt="${videoDetails.title}"
+             class="w-full rounded-lg border border-slate-300 dark:border-slate-600">
+
+        <div class="mt-4 flex justify-end">
+            <a class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg"
+               th:href="${videoDetails.thumbnailUrl}" th:download="${videoDetails.title + '-thumb.jpg'}">
+                <i class="bi bi-download"></i> Download
+            </a>
         </div>
     </div>
+
+
+    <!-- ✅ VIDEO INFO BOX -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6">
+        <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="bi bi-film text-blue-500"></i> Video Details
+        </h2>
+
+        <div class="font-semibold text-xl mb-2 text-slate-900 dark:text-slate-100"
+             th:text="${videoDetails.title}"></div>
+
+        <div class="text-slate-600 dark:text-slate-400">
+            <i class="bi bi-person-circle"></i>
+            <span th:text="${videoDetails.channelTitle}"></span>
+        </div>
+
+        <div class="text-slate-600 dark:text-slate-400 mt-1">
+            <i class="bi bi-calendar3"></i>
+            <span th:text="${videoDetails.publishedAt}"></span>
+        </div>
+    </div>
+
+
+    <!-- ✅ DESCRIPTION BOX -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6">
+        <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="bi bi-text-paragraph text-blue-500"></i> Description
+        </h2>
+
+        <p class="whitespace-pre-line leading-relaxed text-slate-700 dark:text-slate-300"
+           th:text="${videoDetails.description != null ? videoDetails.description : 'No description available.'}">
+        </p>
+    </div>
+
+
+    <!-- ✅ TAGS BOX -->
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold text-lg flex items-center gap-2">
+                <i class="bi bi-tags text-blue-500"></i> Tags
+            </h2>
+
+            <button type="button"
+                    class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg"
+                    th:if="${videoDetails.tags.size() > 0}"
+                    th:onclick="'copyToClipboard(\\'' + ${videoDetails.tags} + '\\')'">
+                <i class="bi bi-clipboard2-check"></i> Copy Tags
+            </button>
+        </div>
+
+        <div th:if="${videoDetails.tags.size() > 0}">
+            <span th:each="tag : ${videoDetails.tags}"
+                  class="inline-block bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 px-3 py-2 rounded-full text-sm mr-2 mb-2 border border-green-200 dark:border-green-700">
+                <i class="bi bi-hash"></i> <span th:text="${tag}"></span>
+            </span>
+        </div>
+
+        <div th:if="${videoDetails.tags.size() == 0}" class="text-slate-500 italic">
+            No tags available.
+        </div>
+    </div>
+
 </div>
+
 
 <script>
     function copyToClipboard(text) {
