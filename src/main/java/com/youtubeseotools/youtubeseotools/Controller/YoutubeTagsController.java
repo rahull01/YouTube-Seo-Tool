@@ -64,10 +64,8 @@ public String videoTags(@RequestParam("videoTitle") String videoTitle, Model mod
 
         if (primary.getTags() != null) {
             String primaryTagsStr = String.join(", ", primary.getTags());
-            // Agar tumne video.java me tagsAsString field add kiya hai:
             primary.setTagsAsString(primaryTagsStr);
-            // Nahi add kiya to ye line use kar sakte ho:
-            // model.addAttribute("primaryTagsAsString", primaryTagsStr);
+           
         }
 
         if (result.getRelatedVideos() != null) {
@@ -88,9 +86,7 @@ public String videoTags(@RequestParam("videoTitle") String videoTitle, Model mod
 }
 
 
-    // -------------------------------------
-    // 2️⃣ Video Details (video-details.html)
-    // -------------------------------------
+ 
     @PostMapping("/video-details")
     public String videoDetails(@RequestParam("videoUrlOrId") String videoUrlOrId, Model model) {
 

@@ -9,12 +9,10 @@ public class video {
     private String channelTitle;
     private List<String> tags;
 
-    // Video-details.html ke liye extra fields
     private String thumbnailUrl;
     private String description;
     private String publishedAt;
 
-    // home.html me: primaryVideo.tagsAsString
     private String tagsAsString;
 
     public video() {

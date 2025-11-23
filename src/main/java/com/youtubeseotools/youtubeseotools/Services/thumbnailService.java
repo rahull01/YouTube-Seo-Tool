@@ -10,7 +10,7 @@ public class thumbnailService {
 
     public String extractVideoID(String url) {
 
-        // Agar already 11 char ka ID hai
+        
         if (url != null && url.matches("^[a-zA-Z0-9_-]{11}$")) {
             return url;
         }

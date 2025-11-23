@@ -26,17 +26,14 @@ public class youtubeservice {
     @Value("${youtube.api.key}")
     private String apiKey;
 
-    // sirf host name (www.googleapis.com)
+    
     @Value("${youtube.api.base.url}")
     private String youtubeBaseUrl;
 
-    // kitne related videos chahiye
+    
     @Value("${youtube.api.max}")
     private int maxRelatedValue;
 
-    // ------------------------------------------------
-    // 1) SEO Tag Generator
-    // ------------------------------------------------
     public searchVideo searchVideo(String videoTitle) {
 
         List<String> videoIds = searchForVideoIds(videoTitle);
@@ -65,16 +62,12 @@ public class youtubeservice {
         return new searchVideo(primaryVideo, relatedVideos);
     }
 
-    // ------------------------------------------------
-    // 2) Video Details Page
-    // ------------------------------------------------
+    
     public video getVideoDetailsById(String videoId) {
         return getVideoById(videoId);
     }
 
-    // ------------------------------------------------
-    // PRIVATE: Search API → get video IDs
-    // ------------------------------------------------
+    
     private List<String> searchForVideoIds(String videoTitle) {
 
         SearchResponse response = webClientBuilder.build()
@@ -108,9 +101,7 @@ public class youtubeservice {
         return videoIds;
     }
 
-    // ------------------------------------------------
-    // PRIVATE: Videos API → full video details
-    // ------------------------------------------------
+
     private video getVideoById(String videoId) {
 
         VideoDetailsResponse response = webClientBuilder.build()
@@ -157,9 +148,7 @@ public class youtubeservice {
         return v;
     }
 
-    // ------------------------------------------------
-    // DTO CLASSES (JSON mapping)
-    // ------------------------------------------------
+
     @Data
     static class SearchResponse {
         public List<SearchResultItem> items;
